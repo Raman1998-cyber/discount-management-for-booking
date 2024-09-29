@@ -1,22 +1,39 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply Discount</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> <!-- Include Bootstrap or any other CSS framework -->
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Apply Discount</h2>
+        <form action="{{ route('discount.apply') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="schedule_id">Schedule ID</label>
+                <input type="number" name="schedule_id" class="form-control" required>
+            </div>
 
-@section('content')
-    <h1>Apply Discount</h1>
-    <form action="{{ route('discount.apply') }}" method="POST">
-        @csrf
-        <label for="schedule_id">Schedule ID</label>
-        <input type="number" name="schedule_id" id="schedule_id" required>
+            <div class="form-group">
+                <label for="total_cost">Total Cost</label>
+                <input type="number" step="0.01" name="total_cost" class="form-control" required>
+            </div>
 
-        <label for="total_cost">Total Cost</label>
-        <input type="number" name="total_cost" id="total_cost" step="0.01" required>
+            <div class="form-group">
+                <label for="discount_id">Select Discount</label>
+                <select name="discount_id" class="form-control" required>
+                    @foreach($discounts as $discount)
+                        <option value="{{ $discount->id }}">{{ $discount->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <label for="discount_id">Select Discount</label>
-        <select name="discount_id" id="discount_id" required>
-            @foreach($discounts as $discount)
-                <option value="{{ $discount->id }}">{{ $discount->name }} ({{ $discount->type }} - {{ $discount->value }})</option>
-            @endforeach
-        </select>
+            <button type="submit" class="btn btn-primary">Apply Discount</button>
+        </form>
+    </div>
 
-        <button type="submit">Apply Discount</button>
-    </form>
-@endsection
+    <script src="{{ asset('js/app.js') }}"></script> <!-- Include JavaScript files -->
+</body>
+</html>

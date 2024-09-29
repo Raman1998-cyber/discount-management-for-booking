@@ -11,7 +11,7 @@ class DiscountController extends Controller
      public function showCreateForm()
     {
         
-        return view('create_discount');
+        return view('discounts.create_discount');
     }
 
     // Method to store the new discount in the database
@@ -52,15 +52,10 @@ class DiscountController extends Controller
             'discount_id' => 'required|exists:discounts,id'
         ]);
 
-        // Find the discount
         $discount = Discount::find($request->discount_id);
-
-        // Check if the discount was found
         if (!$discount) {
             return back()->with('error', 'Discount not found.');
         }
-
-        // Apply the discount logic
         $totalCost = $request->total_cost;
 
         if ($discount->type === 'fixed') {

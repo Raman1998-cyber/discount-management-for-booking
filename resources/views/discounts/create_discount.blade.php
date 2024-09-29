@@ -1,33 +1,58 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Discount</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> <!-- Include Bootstrap or any other CSS framework -->
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Create a Discount</h2>
+        <form action="{{ route('discount.store') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="name">Discount Name</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
 
-@section('content')
-    <h1>Create Discount</h1>
-    <form action="{{ route('discount.store') }}" method="POST">
-        @csrf
-        <label for="name">Discount Name</label>
-        <input type="text" name="name" id="name" required>
+            <div class="form-group">
+                <label for="type">Discount Type</label>
+                <select name="type" class="form-control" required>
+                    <option value="fixed">Fixed</option>
+                    <option value="percentage">Percentage</option>
+                </select>
+            </div>
 
-        <label for="type">Discount Type</label>
-        <select name="type" id="type" required>
-            <option value="fixed">Fixed</option>
-            <option value="percentage">Percentage</option>
-        </select>
+            <div class="form-group">
+                <label for="value">Discount Value</label>
+                <input type="number" step="0.01" name="value" class="form-control" required>
+            </div>
 
-        <label for="value">Discount Value</label>
-        <input type="number" name="value" id="value" step="0.01" required>
+            <div class="form-group">
+                <label for="max_uses">Maximum Uses</label>
+                <input type="number" name="max_uses" class="form-control">
+            </div>
 
-        <label for="max_uses">Maximum Uses (Optional)</label>
-        <input type="number" name="max_uses" id="max_uses">
+            <div class="form-group">
+                <label for="max_discount">Maximum Discount Amount</label>
+                <input type="number" step="0.01" name="max_discount" class="form-control">
+            </div>
 
-        <label for="max_discount">Maximum Discount (Optional)</label>
-        <input type="number" name="max_discount" id="max_discount" step="0.01">
+            <div class="form-group">
+                <label for="recurring">Recurring</label>
+                <input type="checkbox" name="recurring">
+            </div>
 
-        <label for="recurring">Recurring Discount</label>
-        <input type="checkbox" name="recurring" id="recurring" value="1">
+            <div class="form-group">
+                <label for="family_member">Family Member Discount</label>
+                <input type="checkbox" name="family_member">
+            </div>
 
-        <label for="family_member">Family Member Discount</label>
-        <input type="checkbox" name="family_member" id="family_member" value="1">
+            <button type="submit" class="btn btn-primary">Create Discount</button>
+        </form>
+    </div>
 
-        <button type="submit">Create Discount</button>
-    </form>
-@endsection
+    <script src="{{ asset('js/app.js') }}"></script> <!-- Include JavaScript files -->
+</body>
+</html>

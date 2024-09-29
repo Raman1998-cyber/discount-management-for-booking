@@ -21,19 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
    
 });
- Route::get('/users', [UserController::class, 'users']);
-// Route to show discount creation form (GET)
+Route::get('/users', [UserController::class, 'users']);
 Route::get('/discount/create', [DiscountController::class, 'showCreateForm'])->name('discount.create');
-
-// Route to handle form submission (POST)
 Route::post('/discount/store', [DiscountController::class, 'store'])->name('discount.store');
-
-// Route to show the discount application form (GET)
 Route::get('/discount/apply', [DiscountController::class, 'showApplyForm'])->name('discount.applyForm');
-
-// Route to handle discount application (POST)
 Route::post('/discount/apply', [DiscountController::class, 'applyDiscount'])->name('discount.apply');
-
 Route::get('/booking', [BookingController::class, 'showBookingPage'])->name('booking.page');
 Route::post('/booking/apply-discount', [BookingController::class, 'applyDiscount'])->name('booking.applyDiscount');
 require __DIR__.'/auth.php';
